@@ -1,0 +1,106 @@
+/*
+ * Import nib
+ */
+@import 'nib'
+
+/*
+ * Grab a custom font from Google
+ */
+@import url('http://fonts.googleapis.com/css?family=Quicksand')
+
+/*
+ * Nib provides a CSS reset
+ */
+global-reset()
+
+/*
+ * Store the main color, secondary color and
+ * background color as variables
+ */
+main-color = #ff5a4a
+second-color = #ffb2ab
+backgroundcolor = #ebf2ec
+
+*
+  margin 0
+  padding 0
+  box-sizing border-box
+
+
+body
+  font-family 'Georgia'
+  font-size 18px
+  background-color backgroundcolor
+  color #444
+
+header
+  font-family 'Quicksand'
+  padding 50px 10px
+  color #fff
+  font-size 25px
+  text-align center
+
+  h1
+    font-size 2em
+
+  background-color main-color
+  border-bottom 1px solid darken(main-color, 30%)
+  text-shadow 0px -1px 0px darken(main-color, 30%)
+
+.container
+  width 900px
+  margin 50px auto
+  overflow hidden
+
+.main-content
+  float left
+  width 100%
+
+  p
+    margin-bottom 20px
+
+p
+  line-height 1.8
+  padding: 0;
+  box-sizing: border-box;
+
+form
+  background second-color
+  padding 3px
+  position fixed
+  bottom 0
+  width 100%
+
+form input
+  border 0
+  padding 10px
+  width 90%
+  margin-right .5%
+
+form button
+  width 9%
+  background main-color
+  border none
+  padding 10px
+
+#messages
+  list-style-type none
+  margin 0
+  padding 0
+  border: 1px solid main-color
+  border-radius 5px
+
+#messages li
+  padding 5px 10px
+
+#messages li:nth-child(odd)
+  background main-color
+
+#messages li:nth-child(even)
+  background second-color
+footer
+  width 500px
+  margin 50px auto
+  border-top 1px dotted #ccc
+  padding-top 5px
+  font-size 13px

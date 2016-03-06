@@ -1,0 +1,6 @@
+node_modules
+data
+.npm
+*.log
+npm-debug.log*
+bower_components
