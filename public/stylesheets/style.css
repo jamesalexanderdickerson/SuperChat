@@ -186,22 +186,8 @@ form button {
 #messages li:nth-child(even) {
   background: #ffb2ab;
 }
-#oldblock {
-  background-color: #ff3c29;
-  border: 1px solid #e61400;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  display: inline-block;
-  float: right;
-  padding: 2px;
-  margin-top: -3px;
-}
 #o_message {
-  color: #4a4a4a;
-}
-#old {
-  font-family: 'Quicksand';
-  color: #fff;
+  color: #a50f00;
 }
 footer {
   width: 500px;
