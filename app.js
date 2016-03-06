@@ -32,15 +32,28 @@ app.use(stylus.middleware(
 ))
 app.use(express.static(__dirname + '/public'))
 
-app.get('/', function (req, res) {
-  res.render('index',
-    { title: 'Home' }
-  )
-})
 var msgSchema = new mongoose.Schema({
-    message: String
+    message: String,
+    timestamp: {type: Date, default: Date.now}
 })
 var Chat = mongoose.model('Message', msgSchema)
+
+app.get('/chat', function (req,res) {
+  Chat.find(function (err, msgs) {
+    if (err)
+      res.send(err)
+    else {
+      res.json(msgs)
+    }
+  }).limit(10).sort({timestamp: -1})
+
+})
+
+app.get('/', function (req, res) {
+  res.render('index',
+    { title: 'Home' })
+})
+
 io.on('connection', function (socket) {
   console.log('*** a user has connected ***')
   socket.on('disconnect', function () {

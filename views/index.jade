@@ -14,10 +14,11 @@ html(lang='en')
               .main-content
                 h1 Chat Window
                 ul#messages
+                  li(ng-repeat='item in messages | orderBy:"-1": true') {{item.message}} <span id='old'>old message</span>
           form(action='')
-            p Message: {{message}}
-            input#m(autocomplete='off' ng-model="message")
-            button Send
+            p Message: {{lmessage}}
+            input#m(autocomplete='off' ng-model="lmessage")
+            button(ng-click='scrollJump()') Send
         footer
             p Running on node with Express, Jade, Stylus, Angular and Socket.io
         script(src='/socket.io/socket.io.js')
