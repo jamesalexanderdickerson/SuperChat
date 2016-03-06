@@ -14,7 +14,7 @@ html(lang='en')
               .main-content
                 h1 Chat Window
                 ul#messages
-                  li(ng-repeat='item in messages | orderBy:"-1": true') {{item.message}} <span id='old'>old message</span>
+                  li(ng-repeat='item in messages | orderBy:"-1": true') <span id='o_message'>{{item.message}}</span> <div id='oldblock'><span id='old'>< old message</span></div>
           form(action='')
             p Message: {{lmessage}}
             input#m(autocomplete='off' ng-model="lmessage")

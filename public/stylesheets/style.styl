@@ -20,6 +20,7 @@ global-reset()
 main-color = #ff5a4a
 second-color = #ffb2ab
 backgroundcolor = #ebf2ec
+old-message = rgb(74, 74, 74)
 
 *
   margin 0
@@ -101,9 +102,21 @@ form button
 #messages li:nth-child(even)
   background second-color
 
-#old
-  color rgb(62, 62, 62)
+#oldblock
+  background-color darken(main-color, 10%)
+  border 1px solid darken(main-color, 30%)
+  border-radius 5px
+  display inline-block
   float right
+  padding 2px
+  margin-top -3px
+
+#o_message
+  color old-message
+
+#old
+  font-family 'Quicksand'
+  color white
 footer
   width 500px
   margin 50px auto
