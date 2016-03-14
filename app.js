@@ -36,6 +36,12 @@ var msgSchema = new mongoose.Schema({
     message: String,
     timestamp: {type: Date, default: Date.now}
 })
+var usrSchema = new mongoose.Schema({
+    username: String,
+    password: String,
+    timestamp: {type: Date, default: Date.now}
+})
+var User = mongoose.model('User', usrSchema)
 var Chat = mongoose.model('Message', msgSchema)
 
 app.get('/chat', function (req,res) {
@@ -52,6 +58,15 @@ app.get('/chat', function (req,res) {
 app.get('/', function (req, res) {
   res.render('index',
     { title: 'Home' })
+})
+
+app.get('/:name', function (req, res) {
+    var name = req.params.name
+    res.render('superchat/' + name)
+})
+
+app.get('*', function (req, res) {
+    res.render('index')
 })
 
 io.on('connection', function (socket) {
