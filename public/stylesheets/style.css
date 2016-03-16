@@ -174,7 +174,7 @@ form button {
   border: 1px solid #ff5a4a;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  max-height: 300px;
+  height: 280px;
   overflow: scroll;
 }
 #messages li {
