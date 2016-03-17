@@ -1,7 +1,7 @@
 (function() {
   var app;
 
-  app = angular.module('myApp', []);
+  app = angular.module('myApp', ['ngSanitize']);
 
   app.factory('socket', function ($rootScope) {
     var socket = io();

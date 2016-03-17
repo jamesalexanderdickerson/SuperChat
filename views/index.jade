@@ -5,6 +5,7 @@ html(lang='en')
 		link(rel='stylesheet', href='/stylesheets/style.css')
 		script(src='bower_components/angular/angular.js')
 		script(src='bower_components/angular-ui-router/release/angular-ui-router.js')
+		script(src='bower_components/angular-sanitize/angular-sanitize.js')
 		script(src='main.js')
 	body(ng-app='myApp')
 		div.box(ng-controller='HomeCtrl')
@@ -14,7 +15,7 @@ html(lang='en')
 				.main-content
 					h1 Chat Window
 					ul#messages(ng-scroll-bottom="messages", ng-class="{shake: shake}")
-						li(ng-repeat='item in messages') <span id='o_message'>{{item.message}}</span>
+						li(ng-repeat='item in messages') <span id='o_message' ng-bind-html="item.message">{{item.message}}</span>
 			form#chatform(ng-submit="onSubmit()")
 				p Message: {{lmessage}}
 				input#m(autocomplete='off' ng-model="lmessage")
