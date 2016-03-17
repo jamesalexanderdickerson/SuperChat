@@ -9,42 +9,17 @@ html(lang='en')
 	body(ng-app='myApp')
 		div.box(ng-controller='HomeCtrl')
 			header
-				embed(src="logo.svg")  
+				embed(src="logo.svg")
 			.container
 				.main-content
 					h1 Chat Window
-					ul#messages
-						li(ng-repeat='item in messages | orderBy:"-1": true') <span id='o_message'>{{item.message}}</span>
-			form#chatform(action='')
+					ul#messages(ng-scroll-bottom="messages", ng-class="{shake: shake}")
+						li(ng-repeat='item in messages') <span id='o_message'>{{item.message}}</span>
+			form#chatform(ng-submit="onSubmit()")
 				p Message: {{lmessage}}
 				input#m(autocomplete='off' ng-model="lmessage")
-				button(ng-click='formSubmit()') Send
+				button(type="submit") Send
 		footer
 			p Running on node with Express, Jade, Stylus, Angular and Socket.io
 		script(src='/socket.io/socket.io.js')
-		script(src='bower_components/jquery/dist/jquery.js')
-		script
-			|function shake(div) {
-			|  var interval = 100;
-			|  var distance = 10;
-			|  var times = 4;
-			|  $(div).css('position', 'relative');
-			|  for(var iter=0;iter<(times+1);iter++) {
-			|    $(div).animate({
-			|       left:((iter%2==0 ? distance : distance*-1))
-			|    }, interval);  
-			|  }
-			|  $(div).animate({ left: 0}, interval)
-			|}
-			|var socket = io();
-			|$('form').submit(function () {
-			|    socket.emit('chat message', $('#m').val());
-			|    $('#m').val('');
-			|    return false;
-			|});
-			|socket.on('chat message', function (msg) {
-			|    $('#messages').append($('<li>').html(msg));
-			|    $("#messages").scrollTop($("#messages")[0].scrollHeight);
-			|    shake('#messages');
-			|});
 		script(src='main.js')
