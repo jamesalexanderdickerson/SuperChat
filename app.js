@@ -52,7 +52,16 @@ app.get('/chat', function (req,res) {
       res.json(msgs)
     }
   }).limit(10).sort({timestamp: -1})
+})
 
+app.get('/user', function (req,res) {
+  User.find(function (err, usr) {
+    if (err)
+      res.send(err)
+    else {
+      res.render('superchat')
+    }
+  })
 })
 
 app.get('/', function (req, res) {
@@ -62,7 +71,7 @@ app.get('/', function (req, res) {
 
 app.get('/:name', function (req, res) {
     var name = req.params.name
-    res.render('superchat/' + name)
+    res.render('superchat')
 })
 
 app.get('*', function (req, res) {

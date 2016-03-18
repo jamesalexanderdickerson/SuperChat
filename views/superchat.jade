@@ -1,48 +1,26 @@
 doctype
 html(lang='en')
-    head
-        title #{title} - My Site
-        link(rel='stylesheet', href='/stylesheets/style.css')
-        script(src='bower_components/angular/angular.js')
-        script(src='bower_components/angular-ui-router/release/angular-ui-router.js')
-        script(src='main.js')
-    body(ng-app='myApp')
-        div.box(ng-controller='HomeCtrl')
-          header
-            embed(src="logo.svg")  
-          .container
-              .main-content
-                h1 Chat Window
-                ul#messages
-                  li(ng-repeat='item in messages | orderBy:"-1": true') <span id='o_message'>{{item.message}}</span>
-          form#chatform(action='')
-            p Message: {{lmessage}}
-            input#m(autocomplete='off' ng-model="lmessage")
-            button(ng-click='formSubmit()') Send
-        footer
-            p Running on node with Express, Jade, Stylus, Angular and Socket.io
-        script(src='/socket.io/socket.io.js')
-        script(src='bower_components/jquery/dist/jquery.js')
-        script
-          |function shake(div) {
-          |  var internal = 100;
-          |  var distance = 10;
-          |  var times = 4;
-          |  $(div).css('position', 'relative');
-          |  for(var iter=0;iter<(times+1);iter++) {
-          |    $(div).animate({
-          |       left:((iter%2==0 ? distance : distance*-1))
-          |    }, interval);  
-          |  }
-          |  $(div).animate({ left: 0}, interval)
-          |}
-          |var socket = io();
-          |$('form').submit(function () {
-          |    socket.emit('chat message', $('#m').val());
-          |    $('#m').val('');
-          |    return false;
-          |});
-          |socket.on('chat message', function (msg) {
-          |    $('#messages').append($('<li>').html(msg));
-          |});
-        script(src='main.js')
+	head
+		title #{title} - My Site
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		script(src='bower_components/angular/angular.js')
+		script(src='bower_components/angular-ui-router/release/angular-ui-router.js')
+		script(src='bower_components/angular-sanitize/angular-sanitize.js')
+		script(src='main.js')
+	body(ng-app='myApp')
+		div.box(ng-controller='HomeCtrl')
+			header
+				embed(src="logo.svg")
+			.container
+				.main-content
+					h1 Chat Window
+					ul#messages(ng-scroll-bottom="messages", ng-class="{shake: shake}")
+						li(ng-repeat='item in messages') <span id='o_message' ng-bind-html="item.message">{{item.message}}</span>
+			form#chatform(ng-submit="onSubmit()")
+				p Message: {{lmessage}}
+				input#m(autocomplete='off' ng-model="lmessage")
+				button(type="submit") Send
+		footer
+			p Running on node with Express, Jade, Stylus, Angular and Socket.io
+		script(src='/socket.io/socket.io.js')
+		script(src='main.js')

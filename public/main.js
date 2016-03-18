@@ -43,7 +43,21 @@
     }
   }]);
 
-  // Using an array allows for minification
+  app.controller('LoginCtrl', ['$scope', '$http', function($scope, $http) {
+    var uname = $scope.uname;
+    var pword = $scope.pword;
+    $http.get('/')
+      .success(function(data) {
+
+      })
+    $http.get('/user')
+      .success(function(data) {
+        console.log(data)
+      })
+      .error(function(data) {
+        console.log('Error: ' + data)
+      })
+  }])
   app.controller('HomeCtrl', ['$scope', '$http', 'socket', '$timeout', function($scope, $http, socket, $timeout) {
     $http.get('/')
       .success(function(data) {

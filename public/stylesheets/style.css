@@ -148,14 +148,14 @@ p {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-form {
+form#chatform {
   background: #ffb2ab;
   padding: 3px;
   position: fixed;
   bottom: 0;
   width: 100%;
 }
-form input {
+form#chatform input#m {
   border: 0;
   padding: 10px;
   width: 90%;
@@ -215,6 +215,15 @@ footer {
   -moz-perspective: 1000px;
   -ms-perspective: 1000px;
   perspective: 1000px;
+}
+.login_div {
+  background-color: #ff5a4a;
+}
+.login_div form input {
+  float: left;
+}
+.login_div form button {
+  background-color: #ffb2ab;
 }
 @-moz-keyframes shake {
   10%, 90% {
