@@ -3,6 +3,8 @@
 SuperChat is a basic chat application using node and Express.
 It was written using Jade, Stylus, Angular and Socket.io.
 
+*For best results use on iTerm >=2.9*
+
 ## Getting Started
   `>npm install`
 

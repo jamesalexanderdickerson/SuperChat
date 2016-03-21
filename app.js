@@ -8,15 +8,22 @@ var app = require('express')(),
   io = require('socket.io')(http),
   stylus = require('stylus'),
   nib = require('nib'),
-  mongoose = require('mongoose')
+  mongoose = require('mongoose'),
+  termImg = require('term-img')
 
+/*
+ * Connect to database
+ */
 mongoose.connect('mongodb://localhost/SuperChat', function (err) {
   if (err)
     throw err
   else {
-    console.log("Connected to mongo")
+    console.log("Connected to mongo...")
   }
 })
+
+
+
 function compile (str, path) {
   return stylus(str)
     .set('filename', path)
@@ -32,6 +39,10 @@ app.use(stylus.middleware(
 ))
 app.use(express.static(__dirname + '/public'))
 
+
+/*
+ * Database Schema
+ */
 var msgSchema = new mongoose.Schema({
     message: String,
     timestamp: {type: Date, default: Date.now}
@@ -44,6 +55,9 @@ var usrSchema = new mongoose.Schema({
 var User = mongoose.model('User', usrSchema)
 var Chat = mongoose.model('Message', msgSchema)
 
+/*
+ * Routes
+ */
 app.get('/chat', function (req,res) {
   Chat.find(function (err, msgs) {
     if (err)
@@ -59,7 +73,8 @@ app.get('/user', function (req,res) {
     if (err)
       res.send(err)
     else {
-      res.render('superchat')
+      res.render('superchat',
+        { title: 'SuperChat' })
     }
   })
 })
@@ -71,13 +86,18 @@ app.get('/', function (req, res) {
 
 app.get('/:name', function (req, res) {
     var name = req.params.name
-    res.render('superchat')
+    res.render('superchat',
+      { title: name })
 })
 
 app.get('*', function (req, res) {
     res.render('index')
 })
 
+
+/*
+ * Socket.io connection
+ */
 io.on('connection', function (socket) {
   console.log('*** a user has connected ***')
   socket.on('disconnect', function () {
@@ -139,14 +159,20 @@ io.on('connection', function (socket) {
         } else {
           io.emit('chat message', msg)
         }
-
-
-
     })
-
   })
 })
 
+/*
+ * Start Server
+ */
+
+function fallback () {
+    console.log('Listening on port 3000...')
+}
+
 http.listen(3000, function () {
-  console.log('Server running on port 3000...')
+    termImg('logo.png', {fallback})
+    console.log('Listening on port 3000...')
 })
+
