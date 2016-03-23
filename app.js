@@ -1,3 +1,4 @@
+#!/usr/local/bin/nodemon
 /*
  * Module dependencies
  */
@@ -9,7 +10,9 @@ var app = require('express')(),
   stylus = require('stylus'),
   nib = require('nib'),
   mongoose = require('mongoose'),
-  termImg = require('term-img')
+  session = require('express-session'),
+  termImg = require('term-img'),
+  port = process.env.PORT || 3000
 
 /*
  * Connect to database
@@ -171,8 +174,7 @@ function fallback () {
     console.log('Listening on port 3000...')
 }
 
-http.listen(3000, function () {
+http.listen(port, function () {
     termImg('logo.png', {fallback})
-    console.log('Listening on port 3000...')
+    console.log('Listening on port '+port+'...')
 })
-

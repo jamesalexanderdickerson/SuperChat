@@ -219,11 +219,32 @@ footer {
 .login_div {
   background-color: #ff5a4a;
 }
+.login_div form ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.login_div form ul li {
+  float: left;
+  border: 1px solid #000;
+  border-bottom-width: 0;
+  margin: 3px 3px 0px 3px;
+  padding: 5px 5px 0 px 5px;
+}
 .login_div form input {
   float: left;
 }
 .login_div form button {
   background-color: #ffb2ab;
+}
+.login_div form #mainView {
+  border: 1px solid #000;
+  clear: both;
+  padding: 0 1em;
+}
+.login_div form .active {
+  background-color: #fff;
+  color: #000;
 }
 @-moz-keyframes shake {
   10%, 90% {

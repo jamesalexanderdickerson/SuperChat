@@ -44,8 +44,11 @@
   }]);
 
   app.controller('LoginCtrl', ['$scope', '$http', function($scope, $http) {
-    var uname = $scope.uname;
-    var pword = $scope.pword;
+    $scope.tabs = ['Login', 'Register'];
+    $scope.tabs.index = 1;
+    $scope.tabs.active = function () {
+      return $scope.tabs.[$scope.tabs.index];
+    }
     $http.get('/')
       .success(function(data) {
 
