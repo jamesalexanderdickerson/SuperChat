@@ -1,8 +1,6 @@
 (function() {
   var app;
-
   app = angular.module('myApp', ['ngSanitize']);
-
   app.factory('socket', function ($rootScope) {
     var socket = io();
     return {
@@ -44,23 +42,18 @@
   }]);
 
   app.controller('LoginCtrl', ['$scope', '$http', function($scope, $http) {
-    $scope.tabs = ['Login', 'Register'];
-    $scope.tabs.index = 1;
-    $scope.tabs.active = function () {
-      return $scope.tabs.[$scope.tabs.index];
+    $scope.login = true;
+    $scope.switchTab = function (tab) {
+      $scope.login = tab;
+      if ($scope.login === true) {
+        $scope.myColor1 = "#ff5a4a"
+        $scope.myColor2 = "#ffb2ab"
+      } else {
+        $scope.myColor1 = "#ffb2ab"
+        $scope.myColor2 = "#ff5a4a"
+      }
     }
-    $http.get('/')
-      .success(function(data) {
-
-      })
-    $http.get('/user')
-      .success(function(data) {
-        console.log(data)
-      })
-      .error(function(data) {
-        console.log('Error: ' + data)
-      })
-  }])
+  }]);
   app.controller('HomeCtrl', ['$scope', '$http', 'socket', '$timeout', function($scope, $http, socket, $timeout) {
     $http.get('/')
       .success(function(data) {

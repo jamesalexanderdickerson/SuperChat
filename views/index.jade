@@ -5,29 +5,43 @@ html(lang='en')
 		link(rel='stylesheet', href='/stylesheets/style.css')
 		script(src='bower_components/angular/angular.js')
 		script(src='bower_components/angular-ui-router/release/angular-ui-router.js')
+		script(src='bower_components/angular-sanitize/angular-sanitize.js')
 		script(src='main.js')
 	body(ng-app='myApp')
-		div.box(ng-controller='LoginCtrl')
+		div.box
 			header
 				embed(src="logo.svg")  
 			.container
 				.main-content
-					.login_div
-						div(ng-model="tabs.index")
-							div(ng-repeat="tab in tabs" data-title="{{tab}}")
-								p Contents of chose page:
-						div(ng-show="tabs.active() == 'Login'")
-							|Login content
-						div(ng-show="tabs.active() == 'Register'")
-							|Register content
-							//- #viewTwo
-							//- 	h1 register
-							//- 	form(action="")
-							//- 		label Username:
-							//- 			input(type="text" name="uname")
-							//- 		br
-							//- 		label Password:
-							//- 			input(type="password" name="pword")
-							//- 		br
-							//- 		button Submit
+					div(ng-controller='LoginCtrl')
+						.tab#mylogin(ng-model="myColor1" ng-style="{'background-color': myColor1}" ng-click="switchTab(true)")
+							p Login
+						.tab#register(ng-model="myColor2" ng-style="{'background-color': myColor2}" ng-click="switchTab(false)")
+							p Register
+						.login_div
+							#loginform(ng-show="login")
+								//- h1 {{name}}
+								form(action="/" method="post")
+									label Username:
+									input(type="text" name="uname")
+									br
+									label Password:
+										input(type="password" name="pword")
+									br
+									button(value="Submit") Submit
+							#registerform(ng-hide="login")
+								form(action="/" method="post")
+									label Username:
+									input(type="text" name="uname")
+									br
+									label First Name:
+									input(type="text" name="fname")
+									br
+									label Last Name:
+									input(type="text" name="lname")
+									br
+									label Password:
+										input(type="password" name="pword")
+									br
+									button(value="Submit") Submit
 		script(src='main.js')

@@ -216,25 +216,54 @@ footer {
   -ms-perspective: 1000px;
   perspective: 1000px;
 }
+.tab {
+  display: inline-block;
+  margin-left: 5px;
+  padding: 5px;
+  height: 50px;
+  cursor: pointer;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: #ff5a4a;
+  margin-bottom: 0;
+}
+#mylogin {
+  margin-left: 5px;
+}
+#register {
+  background-color: #ffb2ab;
+}
+#loginform {
+  width: 100%;
+}
+#registerform {
+  width: 100%;
+}
 .login_div {
   background-color: #ff5a4a;
+  width: 100%;
+  margin: 5px;
+  margin-top: 0;
+  padding: 10px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border-top-left-radius: 0;
 }
-.login_div form ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.login_div form ul li {
-  float: left;
-  border: 1px solid #000;
-  border-bottom-width: 0;
-  margin: 3px 3px 0px 3px;
-  padding: 5px 5px 0 px 5px;
+.login_div form {
+  margin: 0 auto;
+  width: 850px;
+  text-align: center;
 }
 .login_div form input {
-  float: left;
+  height: 30px;
+  border: none;
+  margin: 10px;
+  margin-left: 50px;
+  width: 200px;
+  padding: 5px;
 }
 .login_div form button {
+  margin-left: 250px;
   background-color: #ffb2ab;
 }
 .login_div form #mainView {

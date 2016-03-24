@@ -25,8 +25,6 @@ mongoose.connect('mongodb://localhost/SuperChat', function (err) {
   }
 })
 
-
-
 function compile (str, path) {
   return stylus(str)
     .set('filename', path)
@@ -34,6 +32,12 @@ function compile (str, path) {
 };
 app.set('views', __dirname + '/views')
 app.set('view engine', 'jade')
+app.use(session({
+  secret:'SuperSecretSecretSquirrel',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
 app.use(express.logger('dev'))
 app.use(stylus.middleware(
   { src: __dirname + '/public',
@@ -41,7 +45,6 @@ app.use(stylus.middleware(
     }
 ))
 app.use(express.static(__dirname + '/public'))
-
 
 /*
  * Database Schema
@@ -72,14 +75,9 @@ app.get('/chat', function (req,res) {
 })
 
 app.get('/user', function (req,res) {
-  User.find(function (err, usr) {
-    if (err)
-      res.send(err)
-    else {
-      res.render('superchat',
-        { title: 'SuperChat' })
-    }
-  })
+  res.render('superchat',
+    { title: 'SuperChat' }
+  )
 })
 
 app.get('/', function (req, res) {
@@ -171,7 +169,7 @@ io.on('connection', function (socket) {
  */
 
 function fallback () {
-    console.log('Listening on port 3000...')
+    console.log('Starting SuperChat...')
 }
 
 http.listen(port, function () {
