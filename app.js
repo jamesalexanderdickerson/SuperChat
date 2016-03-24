@@ -109,18 +109,12 @@ app.get('/', function (req, res) {
 app.post('/authenticate', function (req, res) {
     User.findOne({username: req.body.uname, password: req.body.pword}, function (err, user) {
       if (err) {
-        res.json({
-          type: false,
-          data: 'Error occurred: ' + err
-        })
+        res.render('error')
       } else {
         if (user) {
             res.render('superchat', {title: 'SuperChat', username: req.body.uname})
         } else {
-          res.json({
-            type: false,
-            data: 'Incorrect username or password'
-          })
+          res.render('error')
         }
       }
     })

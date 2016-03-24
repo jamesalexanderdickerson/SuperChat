@@ -1,0 +1,18 @@
+doctype
+html(lang='en')
+	head
+		title #{title}
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		script(src='bower_components/angular/angular.js')
+		script(src='bower_components/angular-ui-router/release/angular-ui-router.js')
+		script(src='bower_components/angular-sanitize/angular-sanitize.js')
+		script(src='main.js')
+	body(ng-app='myApp')
+		div.box
+			header
+				embed(src="logo.svg")
+			.container
+				.main-content
+					p There was a problem logging in. Please try again.
+					a(href="/")
+						button#tryAgain Try Again

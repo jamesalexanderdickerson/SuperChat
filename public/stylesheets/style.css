@@ -243,15 +243,20 @@ footer {
 #registerform {
   width: 100%;
 }
+#tryAgain {
+  background-color: #ff5a4a;
+  width: 9%;
+  padding: 10px;
+  border: none;
+}
 .login_div {
   background-color: #ff5a4a;
   width: 100%;
   margin: 5px;
   margin-top: 0;
   padding: 10px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  border-top-left-radius: 0;
+  -webkit-border-radius: 0 5px 5px 5px;
+  border-radius: 0 5px 5px 5px;
 }
 .login_div form {
   margin: 0 auto;
