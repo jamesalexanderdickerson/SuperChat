@@ -10,7 +10,8 @@ html(lang='en')
 	body(ng-app='myApp')
 		div.box(ng-controller='HomeCtrl')
 			header
-				embed(src="logo.svg")
+				span#myname #{username}
+				img(src="logo.svg")
 			.container
 				.main-content
 					h1 Chat Window

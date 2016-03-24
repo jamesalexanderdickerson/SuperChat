@@ -126,6 +126,10 @@ header {
   border-bottom: 1px solid #e61400;
   text-shadow: 0px -1px 0px #e61400;
 }
+header #myname {
+  float: right;
+  margin-top: -50px;
+}
 header h1 {
   font-size: 2em;
 }

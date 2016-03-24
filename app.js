@@ -6,12 +6,14 @@ var app = require('express')(),
   express = require('express'),
   path = require('path'),
   http = require('http').Server(app),
+  bodyParser = require('body-parser'),
   io = require('socket.io')(http),
   stylus = require('stylus'),
   nib = require('nib'),
   mongoose = require('mongoose'),
   session = require('express-session'),
   termImg = require('term-img'),
+  jwt = require('jsonwebtoken')
   port = process.env.PORT || 3000
 
 /*
@@ -39,6 +41,7 @@ app.use(session({
   cookie: { secure: true }
 }))
 app.use(express.logger('dev'))
+app.use(express.bodyParser())
 app.use(stylus.middleware(
   { src: __dirname + '/public',
     compile: compile
@@ -46,20 +49,28 @@ app.use(stylus.middleware(
 ))
 app.use(express.static(__dirname + '/public'))
 
+function ensureAuthorized(req, res, next) {
+  var bearerToken
+  var bearerHeader = req.headers["authorization"]
+  if (typeof bearerHeader !== 'undefined') {
+    var bearer = bearerHeader.split(" ")
+    bearerToken = bearer[1]
+    req.token = bearerToken
+    next()
+  } else {
+    res.send(403)
+  }
+}
 /*
  * Database Schema
  */
-var msgSchema = new mongoose.Schema({
-    message: String,
-    timestamp: {type: Date, default: Date.now}
-})
-var usrSchema = new mongoose.Schema({
-    username: String,
-    password: String,
-    timestamp: {type: Date, default: Date.now}
-})
-var User = mongoose.model('User', usrSchema)
-var Chat = mongoose.model('Message', msgSchema)
+ var msgSchema = new mongoose.Schema({
+     message: String,
+     timestamp: {type: Date, default: Date.now}
+ })
+
+var User = require('./models/User')
+var Chat = mongoose.model('Messages', msgSchema)
 
 /*
  * Routes
@@ -74,7 +85,17 @@ app.get('/chat', function (req,res) {
   }).limit(10).sort({timestamp: -1})
 })
 
-app.get('/user', function (req,res) {
+app.get('/superchat', ensureAuthorized, function (req,res) {
+  User.findOne({token: req.token}, function (err, user) {
+    if (err) {
+      res.json({
+        type: false,
+        data: 'Error occured ' + err
+      })
+    } else {
+      res.render('superchat', {title: 'SuperChat', name: req.username})
+    }
+  })
   res.render('superchat',
     { title: 'SuperChat' }
   )
@@ -85,10 +106,58 @@ app.get('/', function (req, res) {
     { title: 'Home' })
 })
 
-app.get('/:name', function (req, res) {
-    var name = req.params.name
-    res.render('superchat',
-      { title: name })
+app.post('/authenticate', function (req, res) {
+    User.findOne({username: req.body.uname, password: req.body.pword}, function (err, user) {
+      if (err) {
+        res.json({
+          type: false,
+          data: 'Error occurred: ' + err
+        })
+      } else {
+        if (user) {
+            res.render('superchat', {title: 'SuperChat', username: req.body.uname})
+        } else {
+          res.json({
+            type: false,
+            data: 'Incorrect username or password'
+          })
+        }
+      }
+    })
+})
+
+app.post('/newuser', function (req, res) {
+  User.findOne({uname: req.body.username, password: req.body.password}, function (err,user) {
+    if (err) {
+      res.json({
+        type: false,
+        data: 'Error occurred: ' + err
+      })
+    } else {
+      if (user) {
+        res.json({
+          type: false,
+          data: 'User already exists!'
+        })
+      } else {
+        var userModel = new User()
+        userModel.fname = req.body.fname
+        userModel.lname = req.body.lname
+        userModel.username = req.body.username
+        userModel.password = req.body.password
+        userModel.save(function (err, user) {
+          user.token = jwt.sign(user, process.env.JWT_SECRET || 'SuperSecretSecretSquirrel')
+          user.save(function (err, user1) {
+            res.json({
+              type: true,
+              data: user1,
+              token: user1.token
+            })
+          })
+        })
+      }
+    }
+  })
 })
 
 app.get('*', function (req, res) {

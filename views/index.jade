@@ -21,18 +21,18 @@ html(lang='en')
 						.login_div
 							#loginform(ng-show="login")
 								//- h1 {{name}}
-								form(action="/" method="post")
+								form(action="/authenticate" method="post")
 									label Username:
-									input(type="text" name="uname")
+									input#uname(type="text" name="uname")
 									br
 									label Password:
-										input(type="password" name="pword")
+										input#pword(type="password" name="pword")
 									br
 									button(value="Submit") Submit
 							#registerform(ng-hide="login")
-								form(action="/" method="post")
+								form(action="/newuser" method="post")
 									label Username:
-									input(type="text" name="uname")
+									input(type="text" name="username")
 									br
 									label First Name:
 									input(type="text" name="fname")
@@ -41,7 +41,7 @@ html(lang='en')
 									input(type="text" name="lname")
 									br
 									label Password:
-										input(type="password" name="pword")
+										input(type="password" name="password")
 									br
 									button(value="Submit") Submit
 		script(src='main.js')
